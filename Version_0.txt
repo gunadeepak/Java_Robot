@@ -1,0 +1,87 @@
+package test2;
+public class test2 {
+    private static final int N = 10;
+    private static int[][] floor = new int[N][N]; // initialize floor to all zeros
+    private static int x = 0;
+    private static int y = 0;
+    private static boolean penDown = false;
+    private static String direction = "south";
+
+    public static void main(String[] args) {
+        // Example commands to move and trace shapes with the robot
+        penDown();
+        move();
+        move();
+        move();
+        move();
+        turnRight();
+        move();
+        move();
+        turnRight();
+        move();
+        move();
+        turnRight();
+        move();
+        move();
+        turnRight();
+        penUp();
+        move();
+        move();
+        penDown();
+        move();
+        move();
+        print();
+    }
+
+    public static void penDown() {
+        penDown = true;
+    }
+
+    public static void penUp() {
+        penDown = false;
+    }
+
+    public static void move() {
+        if (direction.equals("north")) {
+            y--;
+        } else if (direction.equals("east")) {
+            x++;
+        } else if (direction.equals("south")) {
+            y++;
+        } else if (direction.equals("west")) {
+            x--;
+        }
+        if (x < 0 || x >= N || y < 0 || y >= N) {
+            System.out.println("Cannot move outside of floor boundaries.");
+            return;
+        }
+        if (penDown) {
+            floor[x][y] = 1;
+        }
+    }
+
+    public static void turnRight() {
+        if (direction.equals("north")) {
+            direction = "east";
+        } else if (direction.equals("east")) {
+            direction = "south";
+        } else if (direction.equals("south")) {
+            direction = "west";
+        } else if (direction.equals("west")) {
+            direction = "north";
+        }
+    }
+
+    public static void print() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (floor[i][j] == 1) {
+                    System.out.print("*");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+}
